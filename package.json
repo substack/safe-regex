@@ -4,6 +4,7 @@
   "description": "detect possibly catastrophic, exponential-time regular expressions",
   "main": "index.js",
   "dependencies": {
+    "byline": "^4.1.1",
     "ret": "~0.1.6"
   },
   "devDependencies": {
@@ -12,10 +13,13 @@
   "scripts": {
     "test": "tape test/*.js"
   },
+  "bin": "./bin/cli",
   "testling": {
     "files": "test/*.js",
     "browsers": [
-      "ie/8", "ie/9", "ie/10", 
+      "ie/8",
+      "ie/9",
+      "ie/10",
       "firefox/latest",
       "chrome/latest",
       "opera/latest",

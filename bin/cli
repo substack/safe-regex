@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+// -*- js -*-
+
+var safe = require('../index.js');
+/*global process:true */
+var inputStream;
+if (!process.stdin.isTTY) { // stdin
+	inputStream = process.stdin;
+} else { // args
+	inputStream = new require("stream").Readable();
+	inputStream._read = function() {
+		this.push(process.argv.slice(2).join(require("os").EOL));
+		this.push(null);
+	};
+}
+//TODO: install npm module
+var byline = require("byline");
+var stream = byline(inputStream/*,{keepEmptyLines:true}*/);
+stream.on("data", function(line) {
+	line += "";
+	var s = safe(line);
+	console[s ? "log" : "error"](line, "\t", s);
+});

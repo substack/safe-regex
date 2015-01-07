@@ -55,6 +55,19 @@ With [npm](https://npmjs.org) do:
 npm install safe-regex
 ```
 
+# CLI
+
+Comes with very simple CLI, taking list of regexps to check. 
+From stdin or from arguments:
+
+	$ ./node_modules/.bin/safe-regex re1 re2 re3
+
+or
+
+	$ echo "re1
+	re2
+	re3" | ./node_modules/.bin/safe-regex
+
 # license
 
 MIT
