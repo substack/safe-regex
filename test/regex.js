@@ -25,7 +25,8 @@ var bad = [
     /foo|(x+x+)+y/,
     /(a+){10}y/,
     /(a+){2}y/,
-    /(.*){1,32000}[bc]/
+    /(.*){1,32000}[bc]/,
+    /(a*|b)+$/,
 ];
 
 test('unsafe regex', function (t) {
