@@ -24,9 +24,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/substack/safe-regex.git"
+    "url": "git://github.com/davisjam/safe-regex.git"
   },
-  "homepage": "https://github.com/substack/safe-regex",
+  "homepage": "https://github.com/davisjam/safe-regex",
   "keywords": [
     "catastrophic",
     "exponential",
@@ -35,9 +35,9 @@
     "sandbox"
   ],
   "author": {
-    "name": "James Halliday",
-    "email": "mail@substack.net",
-    "url": "http://substack.net"
+    "name": "James C. (Jamie) Davis",
+    "email": "davisjam@vt.edu",
+    "url": "http://people.cs.vt.edu/~davisjam"
   },
   "license": "MIT"
 }
