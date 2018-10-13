@@ -10,8 +10,15 @@ module.exports = function (re, opts) {
   else pattern = String(re);
 
   let ast = null;
-  try { ast = regexpTree.parse(`/${pattern}/`) }
-  catch (err) { return false }
+  try {
+    ast = regexpTree.parse(pattern);
+  } catch (err) {
+    try {
+      ast = regexpTree.parse(`/${pattern}/`); }
+    catch (err) {
+      return false;
+    }
+  }
 
   let currentStarHeight = 0;
   let maxObservedStarHeight = 0;
@@ -35,7 +42,7 @@ module.exports = function (re, opts) {
     }
   });
 
-	return (maxObservedStarHeight <= 1) && (repetitionCount <= replimit);
+  return (maxObservedStarHeight <= 1) && (repetitionCount <= replimit);
 };
 
 function isRegExp (x) {

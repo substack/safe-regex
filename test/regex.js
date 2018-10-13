@@ -10,7 +10,8 @@ var good = [
     /(a+)|(b+)/,
     RegExp(Array(26).join('a?') + Array(26).join('a')),
     // String input.
-    'aaa'
+    'aaa',
+    '/^\d+(1337|404)*\d+$/'
 ];
 
 test('safe regex', function (t) {
