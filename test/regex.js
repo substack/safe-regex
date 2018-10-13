@@ -8,6 +8,7 @@ var good = [
     /^\d+(1337|404)\d+$/i,
     /^\d+(1337|404)*\d+$/i,
     RegExp(Array(26).join('a?') + Array(26).join('a')),
+    'aaa'
 ];
 
 test('safe regex', function (t) {
@@ -25,7 +26,8 @@ var bad = [
     /foo|(x+x+)+y/,
     /(a+){10}y/,
     /(a+){2}y/,
-    /(.*){1,32000}[bc]/
+    /(.*){1,32000}[bc]/,
+    '(a+)+'
 ];
 
 test('unsafe regex', function (t) {

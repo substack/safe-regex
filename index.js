@@ -6,8 +6,8 @@ module.exports = function (re, opts) {
 
   let pattern = null;
   if (isRegExp(re)) pattern = re.source;
-  else if (typeof re !== 'string') pattern = String(re);
-  else return false;
+  else if (typeof re === 'string') pattern = re;
+  else pattern = String(re);
 
   let ast = null;
   try { ast = regexpTree.parse(`/${pattern}/`) }
