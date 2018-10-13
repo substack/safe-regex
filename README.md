@@ -1,21 +1,19 @@
 # safe-regex
 
-detect potentially
+Detect potentially
 [catastrophic](http://regular-expressions.mobi/catastrophic.html)
 [exponential-time](http://perlgeek.de/blog-en/perl-tips/in-search-of-an-exponetial-regexp.html)
 regular expressions by limiting the
-[star height](https://en.wikipedia.org/wiki/Star_height) to 1
+[star height](https://en.wikipedia.org/wiki/Star_height) to 1.
 
-WARNING: This module merely *seems* to work given all the catastrophic regular
-expressions I could find scouring the internet, but I don't have enough of a
-background in automata to be absolutely sure that this module will catch all
-exponential-time cases.
+WARNING: This module has both false positives and false negatives.
+Use [vuln-regex-detector](https://github.com/davisjam/vuln-regex-detector) for improved accuracy.
 
 [![browser support](https://ci.testling.com/substack/safe-regex.png)](https://ci.testling.com/substack/safe-regex)
 
 [![build status](https://secure.travis-ci.org/substack/safe-regex.png)](http://travis-ci.org/substack/safe-regex)
 
-# example
+# Example
 
 ``` js
 var safe = require('safe-regex');
@@ -34,13 +32,13 @@ $ node safe.js '\blocation\s*:[^:\n]+\b(Oakland|San Francisco)\b'
 true
 ```
 
-# methods
+# Methods
 
 ``` js
-var safe = require('safe-regex')
+const safe = require('safe-regex')
 ```
 
-## var ok = safe(re, opts={})
+## const ok = safe(re, opts={})
 
 Return a boolean `ok` whether or not the regex `re` is safe and not possibly
 catastrophic.
@@ -52,7 +50,7 @@ If the `re` is a string and is an invalid regex, returns `false`.
 * `opts.limit` - maximum number of allowed repetitions in the entire regex.
 Default: `25`.
 
-# install
+# Install
 
 With [npm](https://npmjs.org) do:
 
@@ -60,6 +58,6 @@ With [npm](https://npmjs.org) do:
 npm install safe-regex
 ```
 
-# license
+# License
 
 MIT
