@@ -7,7 +7,9 @@ var good = [
     /^\d+1337\d+$/i,
     /^\d+(1337|404)\d+$/i,
     /^\d+(1337|404)*\d+$/i,
+    /(a+)|(b+)/,
     RegExp(Array(26).join('a?') + Array(26).join('a')),
+    // String input.
     'aaa'
 ];
 
@@ -27,6 +29,12 @@ var bad = [
     /(a+){10}y/,
     /(a+){2}y/,
     /(.*){1,32000}[bc]/,
+    // Star height with branching and nesting.
+    /(a*|b)+$/,
+    /(a|b*)+$/,
+    /(((b*)))+$/,
+    /(((b*))+)$/,
+    // String input.
     '(a+)+'
 ];
 
