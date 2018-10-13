@@ -1,41 +1,41 @@
-var parse = require('ret');
-var types = parse.types;
+const regexpTree = require('regexp-tree');
 
 module.exports = function (re, opts) {
-    if (!opts) opts = {};
-    var replimit = opts.limit === undefined ? 25 : opts.limit;
-    
-    if (isRegExp(re)) re = re.source;
-    else if (typeof re !== 'string') re = String(re);
-    
-    try { re = parse(re) }
-    catch (err) { return false }
-    
-    var reps = 0;
-    return (function walk (node, starHeight) {
-        if (node.type === types.REPETITION) {
-            starHeight ++;
-            reps ++;
-            if (starHeight > 1) return false;
-            if (reps > replimit) return false;
+  if (!opts) opts = {};
+  const replimit = opts.limit === undefined ? 25 : opts.limit;
+
+  let pattern = null;
+  if (isRegExp(re)) pattern = re.source;
+  else if (typeof re === 'string') pattern = re;
+  else pattern = String(re);
+
+  let ast = null;
+  try { ast = regexpTree.parse(`/${pattern}/`) }
+  catch (err) { return false }
+
+  let currentStarHeight = 0;
+  let maxObservedStarHeight = 0;
+
+  let repetitionCount = 0;
+
+  regexpTree.traverse(ast, {
+    'Repetition': {
+      pre ({node}) {
+        repetitionCount++;
+
+        currentStarHeight++;
+        if (maxObservedStarHeight < currentStarHeight) {
+          maxObservedStarHeight = currentStarHeight;
         }
-        
-        if (node.options) {
-            for (var i = 0, len = node.options.length; i < len; i++) {
-                var ok = walk({ stack: node.options[i] }, starHeight);
-                if (!ok) return false;
-            }
-        }
-        var stack = node.stack || (node.value && node.value.stack);
-        if (!stack) return true;
-        
-        for (var i = 0; i < stack.length; i++) {
-            var ok = walk(stack[i], starHeight);
-            if (!ok) return false;
-        }
-        
-        return true;
-    })(re, 0);
+      },
+
+      post ({node}) {
+        currentStarHeight--;
+      }
+    }
+  });
+
+	return (maxObservedStarHeight <= 1) && (repetitionCount <= replimit);
 };
 
 function isRegExp (x) {
