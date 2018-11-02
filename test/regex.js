@@ -11,7 +11,8 @@ var good = [
     RegExp(Array(26).join('a?') + Array(26).join('a')),
     // String input.
     'aaa',
-    '/^\d+(1337|404)*\d+$/'
+    '/^\d+(1337|404)*\d+$/',
+    '^@types/query-string'
 ];
 
 test('safe regex', function (t) {
