@@ -4,20 +4,24 @@ module.exports = function (re, opts) {
   if (!opts) opts = {};
   const replimit = opts.limit === undefined ? 25 : opts.limit;
 
-  let pattern = null;
-  if (isRegExp(re)) pattern = re.source;
-  else if (typeof re === 'string') pattern = re;
-  else pattern = String(re);
-
+  // Build an AST
+  let myRegExp = null;
   let ast = null;
   try {
-    ast = regexpTree.parse(pattern);
-  } catch (err) {
-    try {
-      ast = regexpTree.parse(`/${pattern}/`); }
-    catch (err) {
-      return false;
+    // Construct a RegExp object
+    if (re instanceof RegExp) {
+      myRegExp = re;
+    } else if (typeof re === 'string') {
+      myRegExp = new RegExp(re);
+    } else {
+      myRegExp = new RegExp(String(re));
     }
+
+    // Build an AST
+    ast = regexpTree.parse(myRegExp);
+  } catch (err) {
+    // Invalid or unparseable input
+    return false;
   }
 
   let currentStarHeight = 0;
@@ -44,7 +48,3 @@ module.exports = function (re, opts) {
 
   return (maxObservedStarHeight <= 1) && (repetitionCount <= replimit);
 };
-
-function isRegExp (x) {
-    return {}.toString.call(x) === '[object RegExp]';
-}
